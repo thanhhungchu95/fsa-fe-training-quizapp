@@ -7,7 +7,6 @@ services:
       - "8081:8080"
     environment:
       - MSSQL_SA_PASSWORD=abcd@1234
-      - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       quizapp-db:
         condition: service_healthy
