@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.WebAPI", "QuizApp.WebAPI\QuizApp.WebAPI.csproj", "{1118E5BD-BE2A-497C-9756-B2836C48B4F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.Data", "QuizApp.Data\QuizApp.Data.csproj", "{79A439F5-3B0F-4A28-B3F4-9EBBD9FD3AC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.Business", "QuizApp.Business\QuizApp.Business.csproj", "{7B281AB9-BDA9-466C-BE89-A0238009576A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appendix", "Appendix", "{4C3FC560-8185-4E76-BFD2-76252BD85066}"
+	ProjectSection(SolutionItems) = preProject
+		GitCommand.md = GitCommand.md
+		MigrationCommand.md = MigrationCommand.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.UnitTesting", "QuizApp.UnitTesting\QuizApp.UnitTesting.csproj", "{7B25C50B-5758-4387-8487-9305C8FD17AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1118E5BD-BE2A-497C-9756-B2836C48B4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1118E5BD-BE2A-497C-9756-B2836C48B4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1118E5BD-BE2A-497C-9756-B2836C48B4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1118E5BD-BE2A-497C-9756-B2836C48B4F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79A439F5-3B0F-4A28-B3F4-9EBBD9FD3AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79A439F5-3B0F-4A28-B3F4-9EBBD9FD3AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79A439F5-3B0F-4A28-B3F4-9EBBD9FD3AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79A439F5-3B0F-4A28-B3F4-9EBBD9FD3AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B281AB9-BDA9-466C-BE89-A0238009576A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B281AB9-BDA9-466C-BE89-A0238009576A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B281AB9-BDA9-466C-BE89-A0238009576A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B281AB9-BDA9-466C-BE89-A0238009576A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B25C50B-5758-4387-8487-9305C8FD17AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B25C50B-5758-4387-8487-9305C8FD17AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B25C50B-5758-4387-8487-9305C8FD17AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B25C50B-5758-4387-8487-9305C8FD17AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

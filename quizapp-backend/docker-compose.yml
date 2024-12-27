@@ -1,0 +1,32 @@
+services:
+  quizapp-webapi:
+    build:
+      context: .
+      dockerfile: QuizApp.WebAPI/Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - MSSQL_SA_PASSWORD=abcd@1234
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      quizapp-db:
+        condition: service_healthy
+
+  quizapp-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: quizapp-db
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=abcd@1234
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S quizapp-db -U sa -P 'abcd@1234' -C -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  sqlvolume:
