@@ -1,8 +1,8 @@
-import IQuizItem from "../../models/IQuizItem";
-import thumbnail from "../../assets/pictures/thumbnail.jpeg";
+import IQuizItem from "../models/IQuizItem";
+import thumbnail from "../assets/pictures/thumbnail.jpeg";
 import { useEffect, useState } from "react";
-import QuizCard from "../../shared/components/QuizCard";
-import LandingContent from "../../shared/components/static/LandingContent";
+import QuizCard from "../shared/components/QuizCard";
+import LandingContent from "../shared/components/static/LandingContent";
 
 const Home = () => {
     const [data, setData] = useState<IQuizItem[]>([]);
@@ -20,11 +20,11 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="h-dvh px-64">
+        <div className="px-64">
             <LandingContent heading={"Welcome to Quiz App"} />
-            <section className="w-full h-1/3 px-3.5 flex flex-col items-center">
+            <section className="w-full px-3.5 flex flex-col items-center">
                 <p className="uppercase font-bold text-4xl pb-4">Quizzes</p>
-                <div className="grid grid-cols-3 gap-4 space-x-3 justify-items-stretch min-h-0">
+                <div className="grid grid-cols-3 gap-4 space-x-3 justify-items-stretch">
                     {
                         data.map((quiz: IQuizItem) => (
                             <QuizCard key={quiz.key} title={quiz.title} description={quiz.description} duration={quiz.duration} thumbnailUrl={quiz.thumbnailUrl} />

@@ -2,17 +2,17 @@ import Footer from "../components/Footer"
 import Header from "../components/Header"
 import Sidebar from "../components/Sidebar"
 
-const ManagerLayout = ({ children }: { children: React.ReactNode }) => {
+const ManagementLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <>
+        <div className="flex flex-col h-screen justify-between">
             <Header />
-            <main>
+            <main className="mb-auto">
                 <Sidebar />
                 { children }
             </main>
             <Footer />
-        </>
+        </div>
     );
 }
 
-export default ManagerLayout;
+export default ManagementLayout;

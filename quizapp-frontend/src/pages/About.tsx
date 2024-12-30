@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import IMemberInformation from "../../models/IMemberInformation";
-import LandingContent from "../../shared/components/static/LandingContent";
-import MemberInformation from "../../shared/components/MemberInformation";
-import avatar1 from "../../assets/pictures/avatar-1.png";
-import avatar2 from "../../assets/pictures/avatar-6.png";
-import avatar3 from "../../assets/pictures/avatar-9.png";
+import IMemberInformation from "../models/IMemberInformation";
+import LandingContent from "../shared/components/static/LandingContent";
+import MemberInformation from "../shared/components/MemberInformation";
+import avatar1 from "../assets/pictures/avatar-1.png";
+import avatar2 from "../assets/pictures/avatar-6.png";
+import avatar3 from "../assets/pictures/avatar-9.png";
 
 const About = () => {
     const [data, setData] = useState<IMemberInformation[]>([]);
@@ -31,7 +31,7 @@ const About = () => {
     }, []);
 
     return (
-        <div className="h-dvh px-64">
+        <div className="px-64">
             <LandingContent heading={"About us"} />
             <section className="w-full h-1/3 px-3.5 flex flex-col items-center">
                 <p className="uppercase font-bold text-4xl pb-4">Our Team</p>

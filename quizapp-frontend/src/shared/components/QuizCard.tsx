@@ -12,6 +12,7 @@ const QuizCard = ({ key, title, duration, description, thumbnailUrl }: IQuizItem
                 </span>
             </p>
             <p className="text-sm">{description}</p>
+            <button className="w-full bg-blue-500 text-white hover:bg-blue-700 font-bold py-2 rounded-sm">Start</button>
         </div>
     );
 }

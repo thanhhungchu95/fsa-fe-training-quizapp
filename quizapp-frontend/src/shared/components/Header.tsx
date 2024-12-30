@@ -1,4 +1,4 @@
-import { faContactBook, faDashboard, faHome, faInfoCircle, faSignIn, faSigning, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faContactBook, faDashboard, faHome, faInfoCircle, faQuestionCircle, faSignIn, faSigning, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import HeaderLink from "./wrappers/HeaderLink";
 import { Link } from "react-router-dom";
 import logo from "../../assets/pictures/quiz-logo.svg";
@@ -21,7 +21,10 @@ const Header = () => {
                         <HeaderLink url={"/"} text={"Home"} icon={faHome} isShow={true} />
                     </li>
                     <li className="nav-item">
-                        <HeaderLink url={"/management/dashboard"} text={"Admin Dashboard"} icon={faDashboard} isShow={isAuthenticated && isManager} />
+                        <HeaderLink url={"/quizzes"} text={"Quizzes"} icon={faQuestionCircle} isShow={true} />
+                    </li>
+                    <li className="nav-item">
+                        <HeaderLink url={"/management/dashboard"} text={"Management"} icon={faDashboard} isShow={isAuthenticated && isManager} />
                     </li>
                     <li className="nav-item">
                         <HeaderLink url={"/about"} text={"About"} icon={faInfoCircle} isShow={true} />
@@ -34,16 +37,16 @@ const Header = () => {
             <div className="profile-menu">
                 <ul className="nav-menu flex justify-center">
                     <li className="nav-item">
-                        <HeaderLink url={"/login"} text={"Login"} icon={faSignIn} isShow={!isAuthenticated} />
+                        <HeaderLink url={"/auth/login"} text={"Login"} icon={faSignIn} isShow={!isAuthenticated} />
                     </li>
                     <li className="nav-item">
-                        <HeaderLink url={"/register"} text={"Register"} icon={faSigning} isShow={!isAuthenticated} />
+                        <HeaderLink url={"/auth/register"} text={"Register"} icon={faSigning} isShow={!isAuthenticated} />
                     </li>
                     <li className="nav-item items-center p-4 flex">
                         <span className={isAuthenticated ? "" : "hidden"}>Welcome, {userName}</span>
                     </li>
                     <li className="nav-item">
-                        <HeaderLink url={"/logout"} text={"Logout"} icon={faSignOut} isShow={isAuthenticated} />
+                        <HeaderLink url={"/auth/logout"} text={"Logout"} icon={faSignOut} isShow={isAuthenticated} />
                     </li>
                 </ul>
             </div>
