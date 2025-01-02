@@ -1,6 +1,11 @@
-import IBaseIconProps from "./IBaseIconProps";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-export default interface IHeaderLinkProps extends IBaseIconProps {
+interface IHeaderLinkProps {
     url: string;
-    isShow: boolean;
+    icon: IconProp;
+    text: string;
+    isShow?: boolean;
+    className?: string;
 }
+
+export default IHeaderLinkProps;

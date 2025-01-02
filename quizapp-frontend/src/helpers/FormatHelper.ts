@@ -13,6 +13,10 @@ const durationConversionFromSeconds = (seconds: number): string => {
     return durationConversion(moment.duration(seconds, 'seconds'));
 }
 
+const durationConversionFromMinutes = (minutes: number): string => {
+    return durationConversion(moment.duration(minutes, 'minutes'));
+}
+
 const monthYearConversion = (): string => {
     return moment().format('MMM YYYY');
 }
@@ -24,6 +28,7 @@ const currentDateConversion = (): string => {
 export const FormatHelper = {
     durationConversion,
     durationConversionFromSeconds,
+    durationConversionFromMinutes,
     monthYearConversion,
     currentDateConversion,
 };

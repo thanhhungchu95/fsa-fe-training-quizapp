@@ -60,7 +60,8 @@ public class UsersController : ControllerBase
     /// <param name="query">The search query.</param>
     /// <returns>A paginated list of users.</returns>
     [HttpGet("search")]
-    [Authorize(Roles = "Admin, Editor")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(PaginatedResult<UserViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Search([FromQuery] SearchUserQuery query)

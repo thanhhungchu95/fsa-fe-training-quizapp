@@ -6,7 +6,7 @@ const ManagementLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex flex-col h-screen justify-between">
             <Header />
-            <main className="mb-auto">
+            <main className="mb-auto flex-grow flex flex-row">
                 <Sidebar />
                 { children }
             </main>
