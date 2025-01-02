@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using QuizApp.Data;
 
@@ -206,6 +207,45 @@ namespace QuizApp.Business
             }
 
             return false;
+        }
+
+        public async Task<PaginatedResult<UserViewModel>> SearchAsync(SearchUserQuery request)
+        {
+            // Get query
+            var query = _unitOfWork.UserRepository.GetQuery().Where(u => u.IsActive == request.IsActive);
+
+            // Filter by name
+            if (!string.IsNullOrWhiteSpace(request.Name))
+            {
+                query = query.Where(u => u.FirstName.Contains(request.Name) || u.LastName.Contains(request.Name));
+            }
+
+            // Order by
+            query = !string.IsNullOrEmpty(request.OrderBy)
+                ? query.OrderByExtensition(request.OrderBy, request.OrderDirection.ToString())
+                : query.OrderBy(o => o.FirstName);
+
+            // Get total count
+            var totalCount = await query.CountAsync();
+
+            // Paginate
+            query = query.Skip((request.Page - 1) * request.Size).Take(request.Size);
+
+            // Map User to UserViewModel
+            var result = await query.Select(user => new UserViewModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email ?? string.Empty,
+                UserName = user.UserName ?? string.Empty,
+                PhoneNumber = user.PhoneNumber ?? string.Empty,
+                DateOfBirth = user.DateOfBirth,
+                Avatar = user.Avatar ?? string.Empty,
+                IsActive = user.IsActive,
+            }).ToListAsync();
+
+            return new PaginatedResult<UserViewModel>(result, totalCount, request.Page, request.Size);
         }
     }
 }

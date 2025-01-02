@@ -55,6 +55,22 @@ public class UsersController : ControllerBase
     }
 
     /// <summary>
+    /// Searches for users based on the provided query.
+    /// </summary>
+    /// <param name="query">The search query.</param>
+    /// <returns>A paginated list of users.</returns>
+    [HttpGet("search")]
+    [Authorize(Roles = "Admin, Editor")]
+    [ProducesResponseType(typeof(PaginatedResult<UserViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Search([FromQuery] SearchUserQuery query)
+    {
+        var users = await _userService.SearchAsync(query);
+
+        return Ok(users);
+    }
+
+    /// <summary>
     /// Retrieves a user by their ID.
     /// </summary>
     /// <param name="id">The ID of the user.</param>

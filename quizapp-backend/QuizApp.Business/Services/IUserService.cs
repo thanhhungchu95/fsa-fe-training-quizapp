@@ -44,5 +44,12 @@ namespace QuizApp.Business
         /// <param name="role">The role to remove from the user.</param>
         /// <returns>A task representing the asynchronous operation. The task result is true if the role was removed successfully; otherwise, false.</returns>
         Task<bool> RemoveRoleFromUserAsync(Guid userId, string roleName);
+
+        /// <summary>
+        /// Searches for users asynchronously based on the provided search criteria.
+        /// </summary>
+        /// <param name="request">The search query containing filter and pagination parameters.</param>
+        /// <returns>A task representing the asynchronous operation. The task result contains a paginated result of user view models matching the search criteria.</returns>
+        Task<PaginatedResult<UserViewModel>> SearchAsync(SearchUserQuery request);
     }
 }

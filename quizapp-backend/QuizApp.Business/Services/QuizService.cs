@@ -406,5 +406,42 @@ namespace QuizApp.Business
 
             return await _unitOfWork.SaveChangesAsync() > 0;
         }
+
+        public async Task<PaginatedResult<QuizViewModel>> SearchAsync(SearchQuizQuery request)
+        {
+            // Get query
+            var query = _unitOfWork.QuizRepository.GetQuery().Where(q => q.IsActive == request.IsActive);
+
+            // Filter by name
+            if (!string.IsNullOrWhiteSpace(request.Title))
+            {
+                query = query.Where(q => q.Title.Contains(request.Title));
+            }
+
+            // Order by
+            query = !string.IsNullOrEmpty(request.OrderBy)
+                ? query.OrderByExtensition(request.OrderBy, request.OrderDirection.ToString())
+                : query.OrderBy(o => o.Title);
+
+            // Get total count
+            var totalCount = await query.CountAsync();
+
+            // Paginate
+            query = query.Skip((request.Page - 1) * request.Size).Take(request.Size);
+
+            // Map Quiz to QuizViewModel
+            var result = await query.Select(quiz => new QuizViewModel
+            {
+                Id = quiz.Id,
+                Title = quiz.Title,
+                Description = quiz.Description,
+                Duration = quiz.Duration,
+                ThumbnailUrl = quiz.ThumbnailUrl,
+                NumberOfQuestions = quiz.QuizQuestions.Count,
+                IsActive = quiz.IsActive
+            }).ToListAsync();
+
+            return new PaginatedResult<QuizViewModel>(result, totalCount, request.Page, request.Size);
+        }
     }
 }

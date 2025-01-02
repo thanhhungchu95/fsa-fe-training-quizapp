@@ -73,5 +73,12 @@ namespace QuizApp.Business
         /// <param name="quizId">The ID of the quiz.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation. The task result contains the average quiz score.</returns>
         // Task<double> GetAverageQuizScoreAsync(Guid quizId);
+
+        /// <summary>
+        /// Searches for quizzes asynchronously based on the provided search criteria.
+        /// </summary>
+        /// <param name="request">The search query containing filter and pagination parameters.</param>
+        /// <returns>A task representing the asynchronous operation. The task result contains a paginated result of quiz view models matching the search criteria.</returns>
+        Task<PaginatedResult<QuizViewModel>> SearchAsync(SearchQuizQuery request);
     }
 }

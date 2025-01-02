@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using QuizApp.Data;
 
@@ -102,6 +103,40 @@ namespace QuizApp.Business
             }
 
             return false;
+        }
+
+        public async Task<PaginatedResult<RoleViewModel>> SearchAsync(SearchRoleQuery request)
+        {
+            // Get query
+            var query = _unitOfWork.RoleRepository.GetQuery().Where(r => r.IsActive == request.IsActive);
+
+            // Filter by name
+            if (!string.IsNullOrWhiteSpace(request.Name))
+            {
+                query = query.Where(r => (r.Name ?? string.Empty).Contains(request.Name));
+            }
+
+            // Order by
+            query = !string.IsNullOrEmpty(request.OrderBy)
+                ? query.OrderByExtensition(request.OrderBy, request.OrderDirection.ToString())
+                : query.OrderBy(o => o.Name);
+
+            // Get total count
+            var totalCount = await query.CountAsync();
+
+            // Paginate
+            query = query.Skip((request.Page - 1) * request.Size).Take(request.Size);
+
+            // Map Role to RoleViewModel
+            var result = await query.Select(role => new RoleViewModel
+            {
+                Id = role.Id,
+                Name = role.Name ?? string.Empty,
+                Description = role.Description,
+                IsActive = role.IsActive
+            }).ToListAsync();
+
+            return new PaginatedResult<RoleViewModel>(result, totalCount, request.Page, request.Size);
         }
     }
 }

@@ -252,4 +252,45 @@ public class QuestionService : BaseService<Question>, IQuestionService
 
         return result > 0;
     }
+
+    public async Task<PaginatedResult<QuestionViewModel>> SearchAsync(SearchQuestionQuery request)
+    {
+        // Get query
+        var query = _unitOfWork.QuestionRepository.GetQuery().Where(q => q.IsActive == request.IsActive);
+
+        // Filter by name
+        if (!string.IsNullOrWhiteSpace(request.Content))
+        {
+            query = query.Where(q => q.Content.Contains(request.Content));
+        }
+
+        // Filter by question type
+        if (request.QuestionType.HasValue)
+        {
+            query = query.Where(q => q.QuestionType == request.QuestionType);
+        }
+
+        // Order by
+        query = !string.IsNullOrEmpty(request.OrderBy)
+            ? query.OrderByExtensition(request.OrderBy, request.OrderDirection.ToString())
+            : query.OrderBy(o => o.Content);
+
+        // Get total count
+        var totalCount = await query.CountAsync();
+
+        // Paginate
+        query = query.Skip((request.Page - 1) * request.Size).Take(request.Size);
+
+        // Map Question to QuestionViewModel
+        var result = await query.Select(question => new QuestionViewModel
+        {
+            Id = question.Id,
+            Content = question.Content,
+            QuestionType = question.QuestionType,
+            NumberOfAnswers = question.Answers.Count,
+            IsActive = question.IsActive
+        }).ToListAsync();
+
+        return new PaginatedResult<QuestionViewModel>(result, totalCount, request.Page, request.Size);
+    }
 }

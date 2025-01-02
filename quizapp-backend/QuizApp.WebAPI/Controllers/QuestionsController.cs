@@ -62,7 +62,21 @@ public class QuestionsController : ControllerBase
         return Ok(questions);
     }
 
+    /// <summary>
+    /// Searches for questions based on the provided query.
+    /// </summary>
+    /// <param name="query">The search query.</param>
+    /// <returns>A paginated list of questions.</returns>
+    [HttpGet("search")]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(PaginatedResult<QuestionViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Search([FromQuery] SearchQuestionQuery query)
+    {
+        var questions = await _questionService.SearchAsync(query);
 
+        return Ok(questions);
+    }
 
     /// <summary>
     /// Retrieves the answers for a specific question by its ID.
@@ -218,6 +232,11 @@ public class QuestionsController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>
+    /// Deletes an answer from a specific question.
+    /// </summary>
+    /// <param name="questionId">The ID of the question from which the answer will be deleted.</param>
+    /// <param name="answerId">The ID of the answer to be deleted.</param>
     [HttpDelete("{questionId}/answers/{answerId}/")]
     [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]

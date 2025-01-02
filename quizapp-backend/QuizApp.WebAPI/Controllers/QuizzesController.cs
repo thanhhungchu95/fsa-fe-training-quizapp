@@ -53,6 +53,22 @@ public class QuizzesController : ControllerBase
     }
 
     /// <summary>
+    /// Searches for quizzes based on the provided query.
+    /// </summary>
+    /// <param name="query">The search query.</param>
+    /// <returns>A paginated list of quizzes.</returns>
+    [HttpGet("search")]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(PaginatedResult<QuizViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Search([FromQuery] SearchQuizQuery query)
+    {
+        var quizzes = await _quizService.SearchAsync(query);
+
+        return Ok(quizzes);
+    }
+
+    /// <summary>
     /// Gets a quiz by ID.
     /// </summary>
     /// <param name="id">The ID of the quiz.</param>

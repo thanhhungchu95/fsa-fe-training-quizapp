@@ -21,5 +21,12 @@ namespace QuizApp.Business
         /// <param name="roleEditViewModel">The view model containing the updated role details.</param>
         /// <returns>A task representing the asynchronous operation. The task result is a boolean indicating whether the role was updated successfully.</returns>
         Task<bool> UpdateRoleAsync(Guid id, RoleEditViewModel roleEditViewModel);
+
+        /// <summary>
+        /// Searches for roles asynchronously based on the provided search criteria.
+        /// </summary>
+        /// <param name="request">The search query containing filter and pagination parameters.</param>
+        /// <returns>A task representing the asynchronous operation. The task result contains a paginated result of role view models matching the search criteria.</returns>
+        Task<PaginatedResult<RoleViewModel>> SearchAsync(SearchRoleQuery request);
     }
 }

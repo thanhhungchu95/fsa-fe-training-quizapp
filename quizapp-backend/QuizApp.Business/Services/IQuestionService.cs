@@ -55,5 +55,12 @@ namespace QuizApp.Business
         /// <param name="questionId">The ID of the question from which to delete the answer.</param>
         /// <returns>A task representing the asynchronous operation. The task result is a boolean indicating whether the deletion was successful.</returns>
         Task<bool> DeleteAnswerFromQuestionAsync(Guid answerId, Guid questionId);
+
+        /// <summary>
+        /// Searches for questions asynchronously based on the provided search criteria.
+        /// </summary>
+        /// <param name="request">The search query containing filter and pagination parameters.</param>
+        /// <returns>A task representing the asynchronous operation. The task result contains a paginated result of question view models matching the search criteria.</returns>
+        Task<PaginatedResult<QuestionViewModel>> SearchAsync(SearchQuestionQuery request);
     }
 }

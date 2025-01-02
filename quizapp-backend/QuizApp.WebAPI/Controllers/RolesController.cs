@@ -50,6 +50,22 @@ public class RolesController : ControllerBase
     }
 
     /// <summary>
+    /// Searches for roles based on the provided query.
+    /// </summary>
+    /// <param name="query">The search query.</param>
+    /// <returns>A paginated list of roles.</returns>
+    [HttpGet("search")]
+    [Authorize(Roles = "Admin, Editor")]
+    [ProducesResponseType(typeof(PaginatedResult<RoleViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Search([FromQuery] SearchRoleQuery query)
+    {
+        var roles = await _roleService.SearchAsync(query);
+
+        return Ok(roles);
+    }
+
+    /// <summary>
     /// Gets a role by its ID.
     /// </summary>
     /// <param name="id">The ID of the role.</param>
