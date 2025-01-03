@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { BaseApiService } from "./base.service";
 import ISearchQuestionQuery from "../../models/queries/ISearchQuestionQuery";
+import IQuestionDetailsModel from "../../models/questions/IQuestionDetailsModel";
 
 const api: AxiosInstance = BaseApiService.createApiServiceInstance('questions');
 
@@ -40,7 +41,7 @@ const getQuestionsByQuizId = async (id: string) => {
     }
 };
 
-const create = async (data: any) => {
+const create = async (data: IQuestionDetailsModel) => {
     try {
         const response: any = await api.post('/', data);
         return response;
@@ -49,7 +50,7 @@ const create = async (data: any) => {
     }
 };
 
-const update = async (id: string, data: any) => {
+const update = async (id: string, data: IQuestionDetailsModel) => {
     try {
         const response: any = await api.put(`/${id}`, data);
         return response;

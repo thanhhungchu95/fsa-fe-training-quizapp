@@ -31,7 +31,8 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns>A list of UserViewModel objects.</returns>
     [HttpGet]
-    [Authorize(Roles = "Admin, Editor")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(List<UserViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetUsers()
@@ -77,7 +78,8 @@ public class UsersController : ControllerBase
     /// <param name="id">The ID of the user.</param>
     /// <returns>The UserViewModel object.</returns>
     [HttpGet("{id}")]
-    [Authorize(Roles = "Admin, Editor")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -138,7 +140,8 @@ public class UsersController : ControllerBase
     /// <param name="userCreateViewModel">The UserCreateViewModel object containing the user details.</param>
     /// <returns>A boolean indicating whether the user creation was successful.</returns>
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -167,7 +170,8 @@ public class UsersController : ControllerBase
     /// <param name="userEditViewModel">The UserEditViewModel object containing the updated user details.</param>
     /// <returns>A boolean indicating whether the user update was successful.</returns>
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin, Editor")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -195,7 +199,8 @@ public class UsersController : ControllerBase
     /// <param name="id">The ID of the user to delete.</param>
     /// <returns>A boolean indicating whether the user deletion was successful.</returns>
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -218,7 +223,8 @@ public class UsersController : ControllerBase
     /// <param name="roleName">The role to add to the user.</param>
     /// <returns>A boolean indicating whether the role was added successfully.</returns>
     [HttpPost("{userId}/addRole/{role}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -243,7 +249,8 @@ public class UsersController : ControllerBase
     /// <param name="roleName">The role to remove from the user.</param>
     /// <returns>A boolean indicating whether the role was removed successfully.</returns>
     [HttpDelete("{userId}/removeRole/{roleName}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin, Editor")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

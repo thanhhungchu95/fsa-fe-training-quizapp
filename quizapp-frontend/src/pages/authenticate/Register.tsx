@@ -39,7 +39,7 @@ const Register = () => {
         phoneNumber: Yup.string().required('Phone number must be provided')
             .matches(RegularExpression.phoneRegExp, 'Phone number is not valid'),
         dateOfBirth: Yup.date().required('Date of birth must be provided')
-            .max(moment(), `Date of birth cannot be exceeded ${moment().format('DD/MM/yyyy')}`),
+            .max(moment().date(), `Date of birth cannot be exceeded ${moment().format('DD/MM/yyyy')}`),
     });
 
     const onSubmit = (values: IRegisterModel) => {

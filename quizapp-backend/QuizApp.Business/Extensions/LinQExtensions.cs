@@ -4,9 +4,9 @@ namespace QuizApp.Business;
 
 public static class LinQExtensions
 {
-    public static IQueryable<T> OrderByExtensition<T>(this IQueryable<T> input, string memberName, string sord)
+    public static IQueryable<T> OrderByExtensition<T>(this IQueryable<T> input, string memberName, string sort)
     {
-        string methodName = $"OrderBy{(sord.ToLower() == "asc" ? "" : "descending")}";
+        string methodName = $"OrderBy{(sort.ToLower() == "ascending" ? "" : "Descending")}";
 
         ParameterExpression parameter = Expression.Parameter(input.ElementType, "p");
 

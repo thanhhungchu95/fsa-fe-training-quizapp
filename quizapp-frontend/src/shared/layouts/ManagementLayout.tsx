@@ -8,7 +8,7 @@ const ManagementLayout = ({ children }: { children: React.ReactNode }) => {
             <Header />
             <main className="mb-auto flex-grow flex flex-row">
                 <Sidebar />
-                { children }
+                {children}
             </main>
             <Footer />
         </div>
