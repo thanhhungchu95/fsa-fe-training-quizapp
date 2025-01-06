@@ -7,8 +7,6 @@ import * as Yup from 'yup';
 import Checkbox from "../../../core/components/Checkbox";
 import IconButton from "../../../shared/components/wrappers/IconButton";
 import { faCancel, faRefresh, faSave } from "@fortawesome/free-solid-svg-icons";
-import moment from "moment";
-import CustomDatePicker from "../../../core/components/CustomDatePicker";
 
 const UserDetails = ({ item, onCancel }: { item: UserViewModel, onCancel: any }) => {
     const initialValues: IUserDetailsModel = {
@@ -40,27 +38,27 @@ const UserDetails = ({ item, onCancel }: { item: UserViewModel, onCancel: any })
             .email('Email is invalid')
             .min(6, 'Email must be at least 6 characters')
             .max(50, 'Email must be at most 50 characters'),
-        username: Yup.string().required('Username must be provided'),
+        userName: Yup.string().required('Username must be provided'),
         phoneNumber: Yup.string().required('Phone number must be provided'),
-        dateOfBirth: Yup.date().required('Birthday must be provided'),
         isActive: Yup.boolean().required("Active must be provided").default(true),
     });
 
     if (!item) {
         Object.assign(validationSchema, {
             password: Yup.string().required('Password must be provided')
-                .min(6, 'Password must be at least 6 characters')
-                .max(20, 'Password must be at most 20 characters'),
+                .min(8, 'Password must be at least 8 characters')
+                .max(50, 'Password must be at most 50 characters'),
             confirmPassword: Yup.string().required('Confirm password must be provided')
                 .oneOf([Yup.ref('password')], 'Passwords must match'),
         });
     }
 
     const onSubmit = async (values: IUserDetailsModel) => {
+        console.log(values);
         try {
             let payload = {
                 ...values,
-                dateOfBirth: '1990-01-01',
+                dateOfBirth: '1990-01-01', // Temporary
             }
 
             let response: any;

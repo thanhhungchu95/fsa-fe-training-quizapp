@@ -74,8 +74,6 @@ public class QuizzesController : ControllerBase
     /// <param name="id">The ID of the quiz.</param>
     /// <returns>The quiz view model.</returns>
     [HttpGet("{id}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(QuizViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -107,8 +105,7 @@ public class QuizzesController : ControllerBase
     /// <param name="quizCreateViewModel">The quiz create view model.</param>
     /// <returns>A boolean indicating if the quiz was created successfully.</returns>
     [HttpPost]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -131,8 +128,7 @@ public class QuizzesController : ControllerBase
     /// <param name="quizQuestionCreateViewModel">The quiz create view model.</param>
     /// <returns>A boolean indicating if the quiz was created successfully.</returns>
     [HttpPost("AddQuestionToQuiz")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -156,8 +152,7 @@ public class QuizzesController : ControllerBase
     /// <param name="quizEditViewModel">The quiz edit view model.</param>
     /// <returns>A boolean indicating if the quiz was updated successfully.</returns>
     [HttpPut("{id}")]
-    // [Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -180,8 +175,7 @@ public class QuizzesController : ControllerBase
     /// <param name="id">The ID of the quiz.</param>
     /// <returns>A boolean indicating if the quiz was deleted successfully.</returns>
     [HttpDelete("{id}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -207,8 +201,7 @@ public class QuizzesController : ControllerBase
     /// If the deletion is successful, the method returns a 200 OK status code. If the provided IDs are invalid or the deletion fails, a 400 Bad Request status code is returned.
     /// </remarks>
     [HttpDelete("{id}/questions/{questionId}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -235,8 +228,7 @@ public class QuizzesController : ControllerBase
     /// returned as an OK response.
     /// </remarks>
     [HttpPost("PrepareQuizForUser")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize]
     [ProducesResponseType(typeof(QuizPrepareInfoViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -259,8 +251,7 @@ public class QuizzesController : ControllerBase
     /// <param name="takeQuizViewModel">The quiz view model containing the necessary information to take the quiz.</param>
     /// <returns>An <see cref="IActionResult"/> representing the result of the quiz taking operation.</returns>
     [HttpPost("takeQuiz")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize]
     [ProducesResponseType(typeof(QuizForTestViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -287,8 +278,7 @@ public class QuizzesController : ControllerBase
     /// If an error occurs during the quiz submission process, a server error response will be returned.
     /// </remarks>
     [HttpPost("submitQuiz")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

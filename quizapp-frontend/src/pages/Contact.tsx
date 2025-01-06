@@ -3,6 +3,8 @@ import IContactModel from "../models/IContactModel";
 import * as Yup from 'yup';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin, faMailBulk, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { BaseApiService } from "../services/apis/base.service";
+import { toast } from "react-toastify";
 
 const Contact = () => {
     const initialValues: IContactModel = {
@@ -26,9 +28,9 @@ const Contact = () => {
 
     const onSubmit = (values: IContactModel) => {
         try {
-            console.log('Contact form is submitted with these values: ' + JSON.stringify(values));
+            toast.info(JSON.stringify(values));
         } catch (error) {
-            console.log('Error: ', error);
+            BaseApiService.handleError(error);
         }
     }
 

@@ -1,9 +1,9 @@
 import IQuizItem from "../../models/IQuizItem";
 import { FormatHelper } from "../../helpers/FormatHelper";
 
-const QuizCard = ({ key, title, duration, description, thumbnailUrl }: IQuizItem) => {
+const QuizCard = ({ title, duration, description, thumbnailUrl }: IQuizItem) => {
     return (
-        <div key={key} className="p-2 border border-blue-700 rounded-lg flex flex-col space-y-3">
+        <div className="p-2 border border-blue-700 rounded-lg flex flex-col space-y-3">
             <img src={thumbnailUrl} alt={title} className="h-1/2 w-full rounded-sm" />
             <p className="text-lg font-bold flow-root">
                 <span className="float-left">{title}</span>

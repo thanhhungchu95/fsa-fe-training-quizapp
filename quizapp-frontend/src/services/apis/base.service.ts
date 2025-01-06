@@ -1,4 +1,6 @@
 import axios, { AxiosInstance } from "axios";
+import { toast } from "react-toastify";
+import { LocalStorageHelper } from "../../helpers/LocalStorageHelper";
 
 const createApiServiceInstance = (controller: string): AxiosInstance => {
     const api: AxiosInstance = axios.create({
@@ -9,7 +11,7 @@ const createApiServiceInstance = (controller: string): AxiosInstance => {
     });
     
     api.interceptors.request.use((config) => {
-        const token = localStorage.getItem('token');
+        const token = LocalStorageHelper.loadToken();
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -42,7 +44,7 @@ const handleError = (error: unknown): void => {
     } else {
         errorMessage = 'An unexpected error occurred.';
     }
-    throw new Error(`Error: ${errorMessage}`);
+    toast.error(errorMessage);
 }
 
 export const BaseApiService = {

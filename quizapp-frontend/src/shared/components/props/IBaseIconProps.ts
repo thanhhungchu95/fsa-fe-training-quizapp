@@ -5,4 +5,6 @@ export default interface IBaseIconProps {
     text?: string;
     iconClassName?: string;
     className?: string;
+    onClick?: () => void;
+    iconPosition?: "left" | "right";
 }

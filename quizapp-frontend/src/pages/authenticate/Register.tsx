@@ -1,12 +1,17 @@
 import * as Yup from 'yup';
-import IRegisterModel from '../../models/IRegisterModel';
+import IRegisterModel from '../../models/auths/IRegisterModel';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { RegularExpression } from '../../core/constants/RegularExpression';
 import moment from 'moment';
+import { AppDispatch } from '../../stores/store';
+import { useDispatch } from 'react-redux';
+import { register } from '../../features/auth/auth.thunk';
+import { BaseApiService } from '../../services/apis/base.service';
 
 const Register = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
 
     const initialValues: IRegisterModel = {
         username: '',
@@ -16,7 +21,7 @@ const Register = () => {
         firstName: '',
         lastName: '',
         phoneNumber: '',
-        dateOfBirth: new Date(),
+        // dateOfBirth: new Date(),
     }
 
     const validationSchema = Yup.object({
@@ -38,15 +43,16 @@ const Register = () => {
             .oneOf([Yup.ref('password')], 'Passwords must match'),
         phoneNumber: Yup.string().required('Phone number must be provided')
             .matches(RegularExpression.phoneRegExp, 'Phone number is not valid'),
-        dateOfBirth: Yup.date().required('Date of birth must be provided')
-            .max(moment().date(), `Date of birth cannot be exceeded ${moment().format('DD/MM/yyyy')}`),
+        // dateOfBirth: Yup.date().required('Date of birth must be provided')
+        //     .max(moment().date(), `Date of birth cannot be exceeded ${moment().format('DD/MM/yyyy')}`),
     });
 
-    const onSubmit = (values: IRegisterModel) => {
+    const onSubmit = async (values: IRegisterModel) => {
         try {
-            console.log('User is register with these values: ' + JSON.stringify(values))
+            await dispatch(register({ ...values, dateOfBirth: new Date('1990-01-01') }));
+            navigate('/');
         } catch (error) {
-            console.log('Error: ', error);
+            BaseApiService.handleError(error);
         }
     }
 
@@ -88,11 +94,11 @@ const Register = () => {
                     <Field type="text" name="phoneNumber" className="form-control p-2 border border-slate-300 rounded-sm w-full" />
                     <ErrorMessage name="phoneNumber" component="div" className="text-red-500" />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="dateOfBirth" className='block mb-2'>Date of Birth</label>
                     <Field type="date" name="dateOfBirth" className="form-control p-2 border border-slate-300 rounded-sm w-full" />
                     <ErrorMessage name="dateOfBirth" component="div" className="text-red-500" />
-                </div>
+                </div> */}
                 <div className="form-group !w-full">
                     <button className='p-2 px-4 border-2 hover:border-2 border-blue-500 bg-white hover:bg-slate-100 text-blue-500 rounded-full w-1/2' onClick={() => navigate('/')}>Back to Home</button>
                     <button type="submit" className="p-2 px-4 border bg-blue-500 hover:bg-blue-700 text-white rounded-full w-1/2">Register</button>

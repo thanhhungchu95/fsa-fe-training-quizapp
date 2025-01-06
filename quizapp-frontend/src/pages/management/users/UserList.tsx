@@ -28,6 +28,7 @@ const UserList = () => {
     const detailForm = useRef<HTMLDivElement>(null);
 
     const columns: TableColumnModel[] = [
+        { field: 'userName', label: 'User Name', type: 'string', sortabled: true, iconSort: [faSortAlphaAsc, faSortAlphaDesc], enum: false },
         { field: 'email', label: 'Email', type: 'string', sortabled: true, iconSort: [faSortAlphaAsc, faSortAlphaDesc], enum: false },
         { field: 'firstName', label: 'First Name', type: 'string', sortabled: true, iconSort: [faSortAlphaAsc, faSortAlphaDesc], enum: null },
         { field: 'lastName', label: 'Last Name', type: 'string', sortabled: true, iconSort: [faSortAlphaAsc, faSortAlphaDesc], enum: null },

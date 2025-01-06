@@ -5,15 +5,16 @@ const HeaderLink: React.FC<IHeaderLinkProps> = ({
     url, 
     icon, 
     text, 
-    isShow = true,
-    className = ''
+    className = '',
+    onClick = () => {}
 }: IHeaderLinkProps) => {
     return (
         <IconLink 
             url={url} 
             icon={icon} 
             text={text}
-            className={`${className} ${isShow ? 'block' : 'hidden'}`} 
+            className={className}
+            onClick={onClick}
         />
     );
 }

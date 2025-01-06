@@ -10,10 +10,13 @@ const IconButton: React.FC<IIconButtonProps> = ({
     icon,
     title = '',
     type = 'button',
+    iconPosition = "left",
 }: IIconButtonProps) => {
     return (
         <button type={type} className={className} onClick={onClick} disabled={disabled} title={title}>
-            <FontAwesomeIcon icon={icon} className={iconClassName} />{text.length ? <span className="ml-2">{text}</span> : ''}
+            {iconPosition === "left" && <FontAwesomeIcon icon={icon} className={`${iconClassName} mr-2`} />}
+            {text.length ? <span>{text}</span> : ''}
+            {iconPosition === "right" && <FontAwesomeIcon icon={icon} className={`${iconClassName} ml-2`} />}
         </button>
     );
 }

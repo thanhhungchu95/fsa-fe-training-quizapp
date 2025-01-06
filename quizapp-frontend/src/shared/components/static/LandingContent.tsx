@@ -1,11 +1,12 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "../wrappers/IconButton";
 import quizbg from "../../../assets/pictures/quiz-bg-01.png";
+import { toast } from "react-toastify";
 
 const LandingContent = (props: { heading: string }) => {
     const takeAQuiz = (): void => {
         // Logic to take a quiz
-        console.log("Taking a quiz...");
+        toast.info('Taking a quiz...');
     }
 
     return (

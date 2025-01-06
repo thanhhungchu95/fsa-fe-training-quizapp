@@ -5,6 +5,8 @@ import QuizCard from "../shared/components/QuizCard";
 import IQuizModel from "../models/IQuizModel";
 import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { toast } from "react-toastify";
+import { BaseApiService } from "../services/apis/base.service";
 
 const Quizzes = () => {
     const [data, setData] = useState<IQuizItem[]>([]);
@@ -19,9 +21,9 @@ const Quizzes = () => {
 
     const onSubmit = (values: IQuizModel) => {
         try {
-            console.log('Quiz is submitted with these values: ', JSON.stringify(values));
+            toast.info(JSON.stringify(values));
         } catch (error) {
-            console.log('Error: ', error);
+            BaseApiService.handleError(error);
         }
     }
 
@@ -61,7 +63,7 @@ const Quizzes = () => {
                 <div className="grid grid-cols-3 gap-4 space-x-3 justify-items-stretch">
                     {
                         data.map((quiz: IQuizItem) => (
-                            <QuizCard key={quiz.key} title={quiz.title} description={quiz.description} duration={quiz.duration} thumbnailUrl={quiz.thumbnailUrl} />
+                            <QuizCard title={quiz.title} description={quiz.description} duration={quiz.duration} thumbnailUrl={quiz.thumbnailUrl} />
                         ))
                     }
                 </div>

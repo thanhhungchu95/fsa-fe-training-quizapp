@@ -1,11 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import IIconLinkProps from "./IIconLinkProps";
 
-interface IHeaderLinkProps {
-    url: string;
-    icon: IconProp;
-    text: string;
-    isShow?: boolean;
-    className?: string;
+interface IHeaderLinkProps extends IIconLinkProps {
 }
 
 export default IHeaderLinkProps;

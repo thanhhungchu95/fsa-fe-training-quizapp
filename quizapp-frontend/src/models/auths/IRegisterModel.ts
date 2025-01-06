@@ -6,5 +6,5 @@ export default interface IRegisterModel extends ILoginModel{
     email: string;
     confirmPassword: string;
     phoneNumber: string;
-    dateOfBirth: Date;
+    dateOfBirth?: Date;
 }

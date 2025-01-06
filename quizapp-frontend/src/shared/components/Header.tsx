@@ -1,14 +1,21 @@
-import { faContactBook, faDashboard, faHome, faInfoCircle, faQuestionCircle, faSignIn, faSigning, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faContactBook, faDashboard, faHome, faInfoCircle, faQuestionCircle, faSignIn, faSigning, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import HeaderLink from "./wrappers/HeaderLink";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/pictures/quiz-logo.svg";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../stores/store";
+import IconButton from "./wrappers/IconButton";
+import { logout } from "../../features/auth/auth.slice";
+import { toast } from "react-toastify";
 
 const Header = () => {
-    // Temporary variable
-    const [isAuthenticated] = useState<boolean>(true);
-    const [isManager] = useState<boolean>(true);
-    const [userName] = useState<string>('');
+    const dispatch = useDispatch<AppDispatch>();
+    const { isAuthenticated, user } = useSelector((state: any) => state.auth);
+    const userInformation = user ? JSON.parse(user.userInformation) : null;
+    const canManage = userInformation ? userInformation.roles.filter((r: string) => r === 'Admin' || r === 'Editor').length > 0 : false;
+    const navigate = useNavigate();
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const location = useLocation();
 
@@ -23,6 +30,13 @@ const Header = () => {
                 : "text-blue-500 hover:bg-blue-500 hover:text-white"
         }`;
     };
+
+    const onLogout = () => {
+        dispatch(logout());
+        toast.success('Logout successfully');
+        navigate('/');
+    }
+
     return (
         <header className="flex justify-between items-center px-4 border-b-2 border-b-blue-200 text-blue-500">
             <Link to="/" className="brand text-2xl font-bold flex items-center">
@@ -36,9 +50,9 @@ const Header = () => {
                     <li className="nav-item">
                         <HeaderLink url="/quizzes" text="Quizzes" icon={faQuestionCircle} className={getLinkClass("/quizzes")} />
                     </li>
-                    <li className="nav-item">
-                        <HeaderLink url="/management/dashboard" text="Management" icon={faDashboard} isShow={isAuthenticated && isManager} className={getLinkClass("/management/dashboard")} />
-                    </li>
+                    {canManage && <li className="nav-item">
+                        <HeaderLink url="/management/dashboard" text="Management" icon={faDashboard} className={getLinkClass("/management/dashboard")} />
+                    </li>}
                     <li className="nav-item">
                         <HeaderLink url="/about" text="About" icon={faInfoCircle} className={getLinkClass("/about")} />
                     </li>
@@ -49,18 +63,33 @@ const Header = () => {
             </nav>
             <div className="profile-menu">
                 <ul className="nav-menu flex justify-center">
-                    <li className="nav-item">
-                        <HeaderLink url="/auth/login" text="Login" icon={faSignIn} isShow={!isAuthenticated} className={getLinkClass("/auth/login")} />
-                    </li>
-                    <li className="nav-item">
-                        <HeaderLink url="/auth/register" text="Register" icon={faSigning} isShow={!isAuthenticated} className={getLinkClass("/auth/register")} />
-                    </li>
-                    <li className="nav-item items-center p-4 flex">
-                        <span className={isAuthenticated ? "" : "hidden"}>Welcome, {userName}</span>
-                    </li>
-                    <li className="nav-item">
-                        <HeaderLink url="/auth/logout" text="Logout" icon={faSignOut} isShow={isAuthenticated} className={getLinkClass("/auth/logout")} />
-                    </li>
+                    {!isAuthenticated &&
+                        <li className="nav-item">
+                            <HeaderLink url="/auth/login" text="Login" icon={faSignIn} className={getLinkClass("/auth/login")} />
+                        </li>
+                    }
+                    {!isAuthenticated &&
+                        <li className="nav-item">
+                            <HeaderLink url="/auth/register" text="Register" icon={faSigning} className={getLinkClass("/auth/register")} />
+                        </li>
+                    }
+                    
+                    {isAuthenticated && (
+                        <li className="nav-item relative">
+                            <IconButton onClick={() => setIsDropdownOpen(!isDropdownOpen)} icon={faAngleDown} iconPosition="right"
+                                className={"flex items-center p-4 text-blue-500 hover:bg-blue-500 hover:text-white focus:outline-none"}
+                                text={`Welcome, ${userInformation ? userInformation.displayName : 'User'}`} />
+                            {isDropdownOpen && (
+                                <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20 border border-blue-700">
+                                    <li>
+                                        <IconButton onClick={() => { onLogout(); setIsDropdownOpen(false); }}
+                                            className={"block px-4 py-2 text-md text-blue-500 hover:bg-blue-500 hover:text-white w-full text-left"}
+                                            icon={faSignOut} text="Logout" />
+                                    </li>
+                                </ul>
+                            )}
+                        </li>
+                    )}
                 </ul>
             </div>
         </header>

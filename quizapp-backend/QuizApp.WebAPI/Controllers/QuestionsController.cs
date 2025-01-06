@@ -31,8 +31,6 @@ public class QuestionsController : ControllerBase
     /// </summary>
     /// <returns>A list of question view models.</returns>
     [HttpGet]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(List<QuestionViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetQuestions()
@@ -56,7 +54,6 @@ public class QuestionsController : ControllerBase
     /// </summary>
     /// <returns>A list of question view models.</returns>
     [HttpGet("getQuestionsByQuizId/{id}")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(List<QuizQuestionViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetQuestionsByQuizId(Guid id)
@@ -87,8 +84,6 @@ public class QuestionsController : ControllerBase
     /// <param name="id">The ID of the question.</param>
     /// <returns>A list of answer view models.</returns>
     [HttpGet("getAnswersByQuestionId/{id}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(List<AnswerViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAnswersByQuestionId(Guid id)
@@ -103,8 +98,6 @@ public class QuestionsController : ControllerBase
     /// <param name="id">The unique identifier of the answers.</param>
     /// <returns>An IActionResult containing the answers.</returns>
     [HttpGet("answers/{id}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(AnswerViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAnswersById(Guid id)
@@ -119,8 +112,6 @@ public class QuestionsController : ControllerBase
     /// <param name="id">The ID of the question.</param>
     /// <returns>The question view model.</returns>
     [HttpGet("{id}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(QuestionViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -150,8 +141,7 @@ public class QuestionsController : ControllerBase
     /// <param name="questionCreateViewModel">The question create view model.</param>
     /// <returns>A boolean indicating the success of the operation.</returns>
     [HttpPost]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -180,8 +170,7 @@ public class QuestionsController : ControllerBase
     /// The method returns an <see cref="IActionResult"/> indicating the success of the operation.
     /// </remarks>
     [HttpPost("addAnswerToQuestion")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -205,8 +194,7 @@ public class QuestionsController : ControllerBase
     /// <param name="questionEditViewModel">The question edit view model.</param>
     /// <returns>A boolean indicating the success of the operation.</returns>
     [HttpPut("{id}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -229,8 +217,7 @@ public class QuestionsController : ControllerBase
     /// <param name="id">The ID of the question.</param>
     /// <returns>A boolean indicating the success of the operation.</returns>
     [HttpDelete("{id}")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -251,8 +238,7 @@ public class QuestionsController : ControllerBase
     /// <param name="questionId">The ID of the question from which the answer will be deleted.</param>
     /// <param name="answerId">The ID of the answer to be deleted.</param>
     [HttpDelete("{questionId}/answers/{answerId}/")]
-    //[Authorize(Roles = "Admin, Editor")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Editor")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

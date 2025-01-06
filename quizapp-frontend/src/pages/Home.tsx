@@ -27,7 +27,7 @@ const Home = () => {
                 <div className="grid grid-cols-3 gap-4 space-x-3 justify-items-stretch">
                     {
                         data.map((quiz: IQuizItem) => (
-                            <QuizCard key={quiz.key} title={quiz.title} description={quiz.description} duration={quiz.duration} thumbnailUrl={quiz.thumbnailUrl} />
+                            <QuizCard title={quiz.title} description={quiz.description} duration={quiz.duration} thumbnailUrl={quiz.thumbnailUrl} />
                         ))
                     }
                 </div>

@@ -1,10 +1,15 @@
 import * as Yup from 'yup';
-import ILoginModel from '../../models/ILoginModel';
+import ILoginModel from '../../models/auths/ILoginModel';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
+import { BaseApiService } from '../../services/apis/base.service';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../stores/store';
+import { login } from '../../features/auth/auth.thunk';
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
 
     const initialValues: ILoginModel = {
         username: '',
@@ -18,11 +23,12 @@ const Login = () => {
             .max(20, 'Password must be at most 20 characters'),
     });
 
-    const onSubmit = (values: ILoginModel) => {
+    const onSubmit = async (values: ILoginModel) => {
         try {
-            console.log('User is submitted with these values: ' + JSON.stringify(values));
+            await dispatch(login(values));
+            navigate('/');
         } catch (error) {
-            console.log('Error: ', error);
+            BaseApiService.handleError(error);
         }
     }
 
@@ -41,7 +47,7 @@ const Login = () => {
                         placeholder="Enter your password" />
                     <ErrorMessage name="password" component="div" className="text-red-500" />
                 </div>
-                <div className="form-group">
+                <div className="form-group flex flex-row space-x-5">
                     <button className='p-2 px-4 border-2 hover:border-2 border-blue-500 bg-white hover:bg-slate-100 text-blue-500 rounded-full w-1/2' onClick={() => navigate('/')}>Back to Home</button>
                     <button type="submit" className="p-2 px-4 border bg-blue-500 hover:bg-blue-700 text-white rounded-full w-1/2">Login</button>
                 </div>
